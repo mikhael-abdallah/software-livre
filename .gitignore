@@ -1,0 +1,13 @@
+# Arquivos gerados pelo Hugo
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
+
+# Arquivos de ambiente local
+.hugo_build.lock
+
+# Arquivos temporários
+.DS_Store
+*.log
+Thumbs.db 

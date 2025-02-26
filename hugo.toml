@@ -1,0 +1,43 @@
+baseURL = 'https://mikhael-abdallah.github.io/software-livre/'
+languageCode = 'pt-br'
+title = 'Diário de Bordo - Desenvolvimento de Software Livre'
+theme = 'ananke'
+
+[params]
+  description = "Diário de bordo para documentar as atividades na disciplina de Desenvolvimento de Software Livre"
+  author = "Mikhael Abdallah de Oliveira Pinto"
+  featured_image = "/images/notebook.jpg"
+  background_color_class = "bg-dark-green"
+  recent_posts_number = 5
+  
+[params.site]
+  Title = "Diário de Bordo - Desenvolvimento de Software Livre"
+  Subtitle = "Documentando minhas atividades na disciplina de Desenvolvimento de Software Livre"
+
+[params.homeInfoParams]
+  Title = "Diário de Bordo - Desenvolvimento de Software Livre"
+  Content = """
+  Olá! Este é o meu diário de bordo para a disciplina de Desenvolvimento de Software Livre.
+  Aqui vou documentar como foi cada aula.
+  """
+
+[params.profileMode]
+  enabled = false
+
+[[menu.main]]
+  identifier = "posts"
+  name = "Entradas"
+  url = "/posts/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "tags"
+  name = "Tags"
+  url = "/tags/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "about"
+  name = "Sobre"
+  url = "/about/"
+  weight = 30
