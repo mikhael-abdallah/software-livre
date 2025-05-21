@@ -72,9 +72,11 @@ Comentei minhas descobertas na issue, mas até o momento não obtive resposta:
 
 A issue [#359](https://gitlab.gnome.org/GNOME/gnome-clocks/-/issues/359) relata que, ao deletar um alarme no GNOME Clocks, não há uma notificação (toast) informando que o alarme foi removido, nem a possibilidade de desfazer a ação. Isso pode ser problemático caso o usuário remova um alarme por engano, pois não há como recuperá-lo facilmente.
 
+Durante a implementação, discutimos a possibilidade de guardar uma fila de alarmes deletados, permitindo restaurar mais de um alarme caso o usuário deletasse vários em sequência. No entanto, concluímos que isso poderia deixar a interface confusa e optamos por permitir desfazer apenas o último alarme deletado, priorizando a simplicidade e clareza para o usuário.
+
 Para resolver esse problema, implementei uma funcionalidade de toast com opção de desfazer a deleção do alarme. Agora, ao deletar um alarme, aparece um toast com a mensagem "Alarm deleted" e um botão "Undo". Caso o usuário clique em "Undo", o alarme é restaurado imediatamente.
 
-## Código Implementado
+### Código da implementação
 
 ```vala
 private Adw.Toast? delete_toast;
@@ -123,9 +125,17 @@ private void show_delete_toast () {
 
     window.add_toast (delete_toast);
 }
-``` 
+```
 
 Essa solução melhora a experiência do usuário, tornando a deleção de alarmes mais segura e amigável, além de seguir boas práticas de UX ao oferecer uma forma de desfazer ações potencialmente destrutivas.
+
+#### Demonstração em vídeo
+
+Veja abaixo um vídeo demonstrando a funcionalidade de desfazer a deleção de alarmes:
+
+<video src="/software-livre/images/alarm_deleted.webm" controls style="max-width: 100%; height: auto;">
+  Seu navegador não suporta o elemento de vídeo.
+</video>
 
 ## Atividades realizadas
 
