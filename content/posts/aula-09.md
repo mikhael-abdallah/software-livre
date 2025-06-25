@@ -15,6 +15,8 @@ Na aula de hoje, comecei minha primeira contribuição para o projeto GNOME Cloc
 
 ### Sobre a issue #329
 
+![Issue #329](/software-livre/images/issue_329.png)
+
 A issue relata que, ao adicionar cidades no GNOME Clocks, é possível adicionar a mesma cidade mais de uma vez, pois o sistema não detecta corretamente duplicatas. Investiguei o código responsável por verificar se uma localização já existe e percebi que a função `location_exists` não estava funcionando como esperado. Descobri que o problema pode estar relacionado à biblioteca [libgweather](https://gitlab.gnome.org/GNOME/libgweather), utilizada para manipular as localizações.
 
 Durante a investigação, notei que o código da localização retornada por `GWeather.Location.get_world()` estava vazio, o que fazia com que a comparação de igualdade falhasse:
@@ -38,6 +40,8 @@ public bool location_exists (GWeather.Location location) {
 O output mostrava que o código da localização era vazio (`location code: `), mas ao imprimir o código da variável `l`, o valor era preenchido corretamente. Isso me levou a suspeitar de um possível bug na biblioteca gweather, especificamente na função de comparação de localizações ([código da função equals](https://gitlab.gnome.org/GNOME/libgweather/-/blob/main/libgweather/gweather-location.c)).
 
 Comentei minhas descobertas na issue, mas até o momento não obtive resposta:
+
+![Discussão da Issue #329](/software-livre/images/issue_329_discussion.png)
 
 > I did some research and I think the problem is related to the type of the location returned by the 
 > `var world_location = GWeather.Location.get_world ();`
@@ -70,11 +74,17 @@ Comentei minhas descobertas na issue, mas até o momento não obtive resposta:
 
 ## Sobre a issue #359
 
+![Issue #359](/software-livre/images/issue_359.png)
+
 A issue [#359](https://gitlab.gnome.org/GNOME/gnome-clocks/-/issues/359) relata que, ao deletar um alarme no GNOME Clocks, não há uma notificação (toast) informando que o alarme foi removido, nem a possibilidade de desfazer a ação. Isso pode ser problemático caso o usuário remova um alarme por engano, pois não há como recuperá-lo facilmente.
 
 Durante a implementação, discutimos a possibilidade de guardar uma fila de alarmes deletados, permitindo restaurar mais de um alarme caso o usuário deletasse vários em sequência. No entanto, concluímos que isso poderia deixar a interface confusa e optamos por permitir desfazer apenas o último alarme deletado, priorizando a simplicidade e clareza para o usuário.
 
 Para resolver esse problema, implementei uma funcionalidade de toast com opção de desfazer a deleção do alarme. Agora, ao deletar um alarme, aparece um toast com a mensagem "Alarm deleted" e um botão "Undo". Caso o usuário clique em "Undo", o alarme é restaurado imediatamente.
+
+![Discussão da Issue #359](/software-livre/images/issue_359_discussion.png)
+
+![Merge Request da Issue #359](/software-livre/images/issue_359_mr.png)
 
 ### Código da implementação
 
@@ -133,7 +143,7 @@ Essa solução melhora a experiência do usuário, tornando a deleção de alarm
 
 Veja abaixo um vídeo demonstrando a funcionalidade de desfazer a deleção de alarmes:
 
-<video src="/software-livre/images/alarm_deleted.webm" controls style="max-width: 100%; height: auto;">
+<video src="/software-livre/images/alarm_deleted.mp4" controls style="max-width: 100%; height: auto;">
   Seu navegador não suporta o elemento de vídeo.
 </video>
 
@@ -185,3 +195,7 @@ Com a implementação concluída e a investigação da issue de cidades duplicad
 3. Acompanhar respostas sobre o possível bug na biblioteca gweather
 
 A experiência de contribuir para o GNOME Clocks foi muito valiosa, especialmente por ter que aprender uma nova linguagem, trabalhar com um framework diferente e investigar problemas em bibliotecas externas. Estou animado para continuar contribuindo e aprendendo mais sobre o ecossistema GNOME.
+
+## Observações
+
+É importante notar que, até o momento da escrita deste post, não recebi respostas dos mantenedores nas issues #329 e #359, apesar dos comentários e contribuições realizadas. Isso é comum em projetos de código aberto, onde os mantenedores podem estar ocupados ou precisar de mais tempo para avaliar as contribuições.
